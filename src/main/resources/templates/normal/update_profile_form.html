@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>This is home page</title>
+</head>
+
+<body>
+	<section>
+		<div class="container">	
+
+			<div class="card bg-light">
+				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+
+					<!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+				</div>
+				<article class="card-body mx-auto" style="max-width: 400px;">
+					<h2 class="card-title mt-3 text-center">Update Profile</h2>
+					
+					<!--<div class="container text-center">
+						<img src="" style="height: 200px; width: 200px;" class="myprofile"
+							th:src="@{'/image/'+${user.imageUrl}}" alt="profile photo">
+					</div>-->
+					
+					<form th:action="@{/user/process_updates_profile}" method="post" th:object="${user}">
+						<input type="hidden" th:value="${user.userId}" name="userId">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+							</div>
+							<input name="name" class="form-control"
+								 placeholder="Full name"
+								type="text" th:value="${user.name}" required>
+						</div> <!-- form-group// -->
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+							</div>
+							<input name="email" class="form-control" placeholder="Email address" type="email"
+								th:value="${user.email}" required>
+						</div> <!-- form-group// -->
+						
+						<!--<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+							</div>
+							<input class="form-control" name="password" placeholder="Create password" type="password"
+								required>
+						</div>--> <!-- form-group// -->
+						
+						<div class="form-group input-group">
+							<!--<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+							</div>-->
+							<textarea placeholder="Enter Something yourself" name="about" rows="10" cols="40"
+								th:text="${user.about}"></textarea>
+						</div><!-- form-group// -->
+						
+						<div class="container text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="reset" class="btn btn-warning">Reset</button>
+						</div> <!-- form-group// -->
+					</form>
+				</article>
+			</div> <!-- card.// -->
+		</div>
+
+		</div>
+	</section>
+
+</body>
+
+</html>
